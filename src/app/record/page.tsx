@@ -1,9 +1,11 @@
 'use client';
-import { Circle, StopCircle } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useReactMediaRecorder } from 'react-media-recorder';
-import { CountdownTimer } from './countdown-timer';
+
+import ActionButtons from './action-buttons';
 import { VideoPreview } from './video-preview';
+
+//TODO Fix video time display issue.
 
 //? camera preview when the recording is not ON
 function CameraPreview() {
@@ -23,11 +25,7 @@ function CameraPreview() {
       });
   }, []);
 
-  return (
-    <div className="text-center">
-      <video ref={videoRef} autoPlay />
-    </div>
-  );
+  return <video ref={videoRef} autoPlay className="h-[90vh]" />;
 }
 
 export default function Page() {
@@ -36,34 +34,27 @@ export default function Page() {
 
   return (
     <div className="container mx-auto h-screen flex flex-col justify-center items-center">
-      <div className="self-center mt-4">
+      <div className="self-center">
         {status === 'idle' && <CameraPreview />}
         {status === 'stopped' ? (
-          <video className="h-[50vh]" src={mediaBlobUrl as string} controls />
+          //? replay of the recorded video
+          <video className="h-[90vh]" autoPlay controls preload="metadata">
+            <source src={mediaBlobUrl as string} />
+          </video>
         ) : (
-          <VideoPreview stream={previewStream} />
+          //? preview while recording
+          <VideoPreview
+            stream={previewStream}
+            isRecording={status === 'recording'}
+          />
         )}
-        <div className="flex gap-4 mt-4 items-center self-center">
-          <Circle
-            onClick={startRecording}
-            className={
-              ' fill-red-400 h-12 w-12 text-muted-foreground hover:scale-110 cursor-pointer duration-200 ' +
-              (status === 'recording' ? 'cursor-not-allowed' : '')
-            }
-          />
-          <StopCircle
-            className={
-              'text-muted-foreground cursor-pointer duration-200 ' +
-              (status === 'recording'
-                ? 'cursor-pointer hover:text-muted h-12 w12'
-                : 'cursor-not-allowed h-8 w-8 ')
-            }
-            size={'icon'}
-            onClick={stopRecording}
-          />
-          <p>{status}</p>
-          {status === 'recording' && <CountdownTimer />}
-        </div>
+      </div>
+      <div className="flex gap-4 items-center -mt-24">
+        <ActionButtons
+          startRecording={startRecording}
+          status={status}
+          stopRecording={stopRecording}
+        />
       </div>
     </div>
   );

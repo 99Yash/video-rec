@@ -15,6 +15,26 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@keyframes gradientMove {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(180deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.animate-gradient {
+  background: linear-gradient(to right, gray, green);
+  background-size: 200% 100%;
+  animation: gradientMove 5s linear infinite; /* Increase duration for a smoother effect */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
