@@ -23,7 +23,9 @@
     "react-dom": "^18",
     "react-media-recorder": "1.6.5",
     "react-use": "^17.4.0",
+    "react-video-recorder": "^3.19.4",
     "react-webcam": "^7.2.0",
+    "styled-components": "^6.1.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -31,6 +33,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-video-recorder": "^3.19.2",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "13.5.6",
